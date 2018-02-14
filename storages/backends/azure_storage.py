@@ -96,6 +96,9 @@ class AzureStorage(Storage):
         self.connection.put_blob(self.azure_container, name,
                                  content_data, "BlockBlob",
                                  x_ms_blob_content_type=content_type)
+        self.connection.set_blob_properties(self.azure_container,
+                                            name,
+                                            x_ms_blob_content_disposition="attachment;{}".format(name))
         return name
 
     def url(self, name):
